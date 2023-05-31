@@ -1,8 +1,752 @@
-# Compiled Form Modules
-*.fmx
 
-# Compiled Menu Modules
-*.mmx
+/*Cree mi tabla t_alumnos_tesoem con primary key y poniendo not null a todos para que ningun campo quede vacio
+al igual metiendo en el campo matricula un unique indicando que  no se puede repetir ese valor*/
+create table t_alumnos_tesoem(
+id_alumnos number (10) PRIMARY KEY not null ,
+matricula number(30) not null unique,
+nombre varchar2 (50)not null,
+a_paterno varchar2(50)not null ,
+a_materno varchar2(50) not null,
+carrera varchar2(50) not null,
+grupo nvarchar2(50)not null,
+semestre number(10) not null,
+edificio varchar2(10)not null ,
+promedio number (10)not null);
 
-# Compiled Pre-Linked Libraries
-*.plx
+/*elimina mi tabla t_alumnos_tesoem*/
+DROP TABLE t_alumnos_tesoem;
+/*elimina todos mis procedimientos que cree para almacenar llamandolos ap_alumnos hasta el ap_alumnos_9 
+ya que son 9 carreras e hice uno por carrera*/
+DROP procedure ap_alumnos;
+DROP procedure ap_alumnos_2;
+DROP procedure ap_alumnos_3;
+DROP procedure ap_alumnos_4;
+DROP procedure ap_alumnos_5;
+DROP procedure ap_alumnos_6;
+DROP procedure ap_alumnos_7;
+DROP procedure ap_alumnos_8;
+DROP procedure ap_alumnos_9;
+/*elimina mis tablas de carreras*/
+DROP TABLE t_carrera_ISC;
+DROP TABLE t_carrera_Gastronomia;
+DROP TABLE t_carrera_IA;
+DROP TABLE t_carrera_AD;
+DROP TABLE t_carrera_Automotriz;
+DROP TABLE t_carrera_II;
+DROP TABLE t_carrera_TICS;
+DROP TABLE t_carrera_CP;
+DROP TABLE t_carrera_TICS;
+DROP TABLE t_carrera_ER;
+
+/*muestra las tablas que cree de las carreras y la general del tesoem para que asome la información de los datos almacenados en cada tabla*/
+select*from t_alumnos_tesoem;
+select*from t_carrera_ISC;
+select*from t_carrera_AD;
+select*from t_carrera_Gastronomia;
+select*from t_carrera_IA;
+select*from t_carrera_II;
+select*from t_carrera_Automotriz;
+select*from t_carrera_CP;
+select*from t_carrera_TICS;
+select*from t_carrera_ER;
+
+/*cree mi almacenamiento llamandola ap_alumnos indicando que ap es igual a al proceso de almacenado ya que es para que tenga una buena practica ap_alumnos
+cargando la misma cantidad de variables que las tablas carreras para que no hubiera algun error de desbordamiento y no me dejara hacer nada por error.
+Despues puse mi insert into llamando a la tabla pricipal t_alumnos tesoem y que evalue cada unos de mis campos a llenar.
+puse un if haciendo el llamado de mi variable de almacenamiento a_carrera y me pusiera en especial el nombre que le habia dado a
+la carrera para que al final solo hiciera el llamado a la tabla en este caso t_carrera_ISC logrando se asomar toda la 
+informacion de la tabla original t_alumnos_tesoem tambien haciendo la concatenacion de nombre,apellido paterno y materno para que esos 3 
+campos salieran en uno solo finlalizando mi condicion de if y dando fin al procedimiento de almacenamiento
+Realizando este mismo proceso con las 9 carreras*/
+
+
+create or replace procedure ap_alumnos(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='Computacionales' then
+insert into t_carrera_ISC values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM ,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+create or replace procedure ap_alumnos_2(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='IAD' then
+insert into t_carrera_AD values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+create or replace procedure ap_alumnos_3(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='Gastronomia' then
+insert into t_carrera_Gastronomia values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+create or replace procedure ap_alumnos_4(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='I-Ind' then
+insert into t_carrera_II values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+
+create or replace procedure ap_alumnos_5(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='IA' then
+insert into t_carrera_IA values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+
+
+create or replace procedure ap_alumnos_6(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='Automotriz' then
+insert into t_carrera_Automotriz values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+create or replace procedure ap_alumnos_7(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='Con-Publico' then
+insert into t_carrera_CP values ( a_matricula,a_id,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo , a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+create or replace procedure ap_alumnos_8(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='I-energiaaRenova' then
+insert into t_carrera_ER values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+
+create or replace procedure ap_alumnos_9(a_matricula in number,
+a_id in number ,a_nombre in varchar2,a_apellidoP in varchar2,a_apellidoM in varchar2,a_carrera in varchar2,a_grupo in nvarchar2,a_semestre in number,a_edificio in varchar2,a_promedio in number default '0')
+as begin
+insert into t_alumnos_tesoem values (a_matricula,a_id  ,a_nombre,a_apellidoP,a_apellidoM,a_carrera ,a_grupo ,a_semestre ,a_edificio ,a_promedio );
+if a_carrera='Tecno-TICS' then
+insert into t_carrera_TICS values (a_matricula,a_id ,a_nombre||' '||a_apellidoP||' '||a_apellidoM,a_carrera ,a_grupo ,a_semestre,a_edificio,a_promedio);
+end if;
+end;
+
+
+/*cree mis tablas de carreras metiendo un not null en cada uno para que no se quedara en
+blanco ningun campo y añadiendo a la matricula un nique para que no se repita el mismo valor*/
+
+create table t_carrera_ISC(
+id_carrera_isc NUMBER(10) not null,
+matricula number (30) not null unique,
+nombre varchar2 (50)not null,
+carrera varchar2(50)not null,
+grupo nvarchar2(50) not null,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+create table t_carrera_AD(
+id_carrera_AD NUMBER(10) not null,
+matricula number (30) not null unique,
+nombre varchar2 (50)not null,
+carrera varchar2(50)not null,
+grupo nvarchar2(50)not null ,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+create table t_carrera_Gastronomia(
+id_carrera_Gastronomia NUMBER(10) not null,
+matricula number (30) not null unique ,
+nombre varchar2 (50)not null,
+carrera varchar(50)not null,
+grupo nvarchar2(50)not null ,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+create table t_carrera_II(
+II_carrera_id NUMBER(10) not null,
+matricula number (30) not null unique ,
+nombre varchar2 (50)not null,
+carrera varchar(50)not null,
+grupo nvarchar2(50)not null ,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+create table t_carrera_IA(
+id_carrera_IA NUMBER(10) not null,
+matricula number (30) not null unique ,
+nombre varchar2 (50)not null,
+carrera varchar(50)not null,
+grupo nvarchar2(50)not null,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+create table t_carrera_Automotriz(
+id_carrera_Automotriz NUMBER(10) not null,
+matricula number (30) not null unique ,
+nombre varchar2 (50)not null,
+carrera varchar(50)not null,
+grupo nvarchar2(50)not null ,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+create table t_carrera_CP(
+id_carrera_CP NUMBER(10) not null,
+matricula number (30) not null unique ,
+nombre varchar2 (50)not null,
+carrera varchar2(50)not null,
+grupo nvarchar2(50)not null ,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+
+create table t_carrera_TICS(
+id_carrera_TICS NUMBER(10) not null,
+matricula number (30) not null unique ,
+nombre varchar2 (50)not null,
+carrera varchar(50)not null,
+grupo nvarchar2(50)not null ,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+
+
+create table t_carrera_ER(
+id_carrera_ER NUMBER(10) not null,
+matricula number (30) not null unique ,
+nombre varchar2 (50)not null,
+carrera varchar2(50)not null,
+grupo nvarchar2(50)not null ,
+semestre number (10)not null,
+edificio varchar2(10)not null,
+promedio varchar(10)not null);
+
+/*elimina el registro de mi tabla alumnos_tesoem ya que si no utilizo el where puede que se eliminen todo mis registros */
+delete from alumnos_tesoem where  carrera='Computacionales';
+
+
+/*ejecuta cada uno de mis procedimientos con su respectivo nombre del procedimiento de almacenado con id, matricula,nombre,apellido paterno,
+apellido materno,etc remplazados por los datos de alumnos del tesoem para que guarde la informacion dando un total de 94 alumnos */
+
+
+execute ap_alumnos (01,559965454,'Jocelyn ','Mora','Castro','Computacionales','8S11',008,'B',80);
+execute ap_alumnos (002,441525556,' Alberto','Barrios','Barrios','Computacionales','8S11',008,'B',86);
+execute ap_alumnos (003,996545444,'Luis ','Martinez','Vazquez','Computacionales','8S11',008,'B',90);
+execute ap_alumnos (004,455585566,'Baruch ','Orozco','Sanchez','Computacionales','8S11',008,'B',95);
+
+
+
+
+execute ap_alumnos_2 (5,777445558,'Jocelyn','Arrieta','Pereda','IAD','1AD11',001,'D',79);
+execute ap_alumnos_2 (6,88978875,'Adamarg Fernanda','Dominguez','Rocha','IAD','1AD11',001,'D',85);
+
+
+
+
+
+
+
+execute ap_alumnos_3 (7,241554888,'Karla Joselyn','Hernandez','Lopez','Gastronomia','3G11',3,'C',83);
+execute ap_alumnos_3 (8,998521888,'Valeria','Arellano','Duran','Gastronomia','4G11',4,'C',82);
+execute ap_alumnos_3 (9,99855533,'Gustavo Alonso','Elizable','Ginez',  'Gastronomia','4G12',4,'C',76);
+
+
+
+
+
+execute ap_alumnos_4  (10,2235552,'Brandon ','Duarte','Mendoza','I-Ind','7I11',7,'F',80);
+execute ap_alumnos_4  (11,9624532,'David Angel','Vara','Camacho','I-Ind','7I11',7,'F',82);
+execute ap_alumnos_4  (12,13348999,'Joahan','Romero','Roman','I-Ind','7I11',7,'F',81);
+
+
+
+execute ap_alumnos_5 (13,155630061,'Cristhian','Sereno','Lopez',   'IA','8A11',8,'D',87);
+execute ap_alumnos_5 (14,989856623,'Adrian',' Garcia','Oregon',    'IA','8A11',8,'D',75);
+
+
+
+
+execute ap_alumnos_6 (15,888874411,'Asael David ',' Corona','Luna','Automotriz','4A11',4,'E',86);
+execute ap_alumnos_6 (16,563245971,'Jonathan Yael','Jimenez','Ortiz', 'Automotriz','3SA11',3,'E',84);
+
+
+
+
+
+execute ap_alumnos_7 (17,148964444,'Cristian','Mendoza','Nava',       'Con-Publico','8C11',8,'I',98);
+execute ap_alumnos_7 (074,4444789,'Angel','Lopez ','Flores',         'Con-Publico','8C12',8,'I',95);
+
+
+
+execute ap_alumnos_8 (18,75694,' Eliza','Castillo','Beltran','I-energiaaRenova','8I11',   8,'I',  95);
+execute ap_alumnos_8 (19,14445634, 'Arturo', 'Ramirez', 'Soriano', 'I-energiaaRenova', '8E11',       8, 'I', 96);
+
+
+
+execute ap_alumnos_9(20,12345, ' Gabriel', 'Hernández', 'Mora', 'Tecno-TICS', '7T11', '7', 'E', 90);
+execute ap_alumnos_9(21,10000, ' María', 'Ortiz', 'Orozco', 'Tecno-TICS', '7T11', '7', 'E', 91);
+
+
+
+/*realice un select de mis datos ya cargados de alumnos para que lo asome en una lista general  asomando  ciertos campos
+por ejemplo el id_alumnos dando de nombre a esa columna id y no saliera todo el nombre original de la variable id_alumnos y a cada campo le di un nombre en
+especifico y concatenando apellidos y nombres para que salieran en una sola columna llamada Nombre del Alumnno*/
+SELECT  id_alumnos as "ID",matricula as "Matricula",nombre||' '||a_paterno||' '||a_materno as "Nombre del Alumno",grupo as "Grupo",edificio"Edificio" FROM t_alumnos_tesoem;
+
+/*puse los left join para que me permita consultar los datos de varias tablas de las carreras  
+para que me muestre todos los alumnos que vayan en el mismos semestre de cada una de estas carreras
+poderlos vizualizar mas rapido
+y en caso dado de que las filas no coincida sera como un null*/
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='1'; 
+
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='2'; 
+
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='3'; 
+
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='4'; 
+
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='5'; 
+
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='6'; 
+
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='7'; 
+
+SELECT  a.matricula as "Matricula",a.a_paterno||' '||a.a_materno ||' '|| a.nombre as "Nombre del Alumno",a.promedio as "Promedio", a.semestre,a.carrera 
+FROM t_alumnos_tesoem a
+left join t_carrera_ISC ISC on a.id_alumnos = isc.id_carrera_isc
+left join t_carrera_IA IA on a.id_alumnos = ia.id_carrera_ia
+left join t_carrera_II Ind on a.id_alumnos = ind.ii_carrera_id
+left join t_carrera_Gastronomia LG on a.id_alumnos = lg.id_carrera_gastronomia
+left join t_carrera_AD AD on a.id_alumnos = ad.id_carrera_AD
+left join t_carrera_Automotriz Aut on a.id_alumnos = aut.id_carrera_Automotriz
+left join t_carrera_CP CP on a.id_alumnos = cp.id_carrera_CP
+left join t_carrera_TICS TICS on a.id_alumnos = tics.id_carrera_TICS
+left join t_carrera_ER ER on a.id_alumnos = er.id_carrera_ER
+where a.semestre='8'; 
+
+
+
+
+
+/*Cree mi tabla de profesores con sus respectivos campos y sus not null explicando tambien
+en las otras tablas de alumnos para que no quede ningun campo en blanco */
+create table t_profesores_tesoem(
+    id_profesores number(10) primary key,
+    nombre nvarchar2(60)not null,
+    apellido_PP nvarchar2(60)not null,
+    apellido_MP nvarchar2(60)not null,
+    carrera_imparte nvarchar2(50)not null,
+    nombre_clase nvarchar2(50)not null,
+    grupo varchar(9)not null
+);
+/*elimina mi tabla t_profesores_tesoem*/
+
+drop table t_profesores_tesoem;
+/*elimina mi procedimientosuno por cada procedimiento*/
+DROP procedure pa_profesores_1;
+DROP procedure pa_profesores_2;
+DROP procedure pa_profesores_3;
+DROP procedure pa_profesores_4;
+DROP procedure pa_profesores_5;
+DROP procedure pa_profesores_6;
+DROP procedure pa_profesores_7;
+DROP procedure pa_profesores_8;
+DROP procedure pa_profesores_9;
+/*elimina mis tablas de cada carrera con su respecitva informacion si estuviera cargada*/
+drop table t_profesores_tesoem;
+drop table ISC_profesores;
+drop table AD_profesores;
+drop table Gastronomia_profesores;
+drop table II_profesores;
+drop table Automotriz_profesores;
+drop table TICS_profesores;
+drop table CP_profesores;
+drop table IA_profes;
+drop table ER_profesores;
+
+/*Visualiza mis tablas con los datos de profesores cargada o vacia*/
+select*from t_profesores_tesoem;
+select*from ISC_profesores;
+select*from AD_profesores;
+select*from Gastronomia_profesores;
+select*from II_profesores;
+select*from Automotriz_profesores;
+select*from TICS_profesores;
+select*from CP_profesores;
+select*from IA_profesores;
+select*from ER_profesores;
+
+
+/*cree mi almacenamiento llamandola pa_profesores_1 indicando que pa es igual a al proceso de almacenado ya que es para que tenga una buena practica pa_profesores_1
+cargando la misma cantidad de variables que las tablas carreras para que no hubiera algun error de desbordamiento y no me dejara hacer nada por error.
+Despues puse mi insert into llamando a la tabla pricipal t_profesore_tesoem y que evalue cada unos de mis campos a llenar.
+puse un if haciendo el llamado de mi variable de almacenamiento carrera_imparte y me pusiera en especial el nombre que le habia dado a
+la carrera para que al final solo hiciera el llamado a la tabla en este caso ISC_profesores logrando se asomar toda la 
+informacion de la tabla original t_profesor_tesoem tambien haciendo la concatenacion de nombre,apellido paterno y materno para que esos 3 
+campos salieran en uno solo finlalizando mi condicion de if y dando fin al procedimiento de almacenamiento
+Realizando este mismo proceso con las 9 carreras de los profesores*/
+
+
+create or replace procedure pa_profesores_1
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'Computacionales' then 
+        insert into ISC_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;
+    
+create or replace procedure pa_profesores_2
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'IAD' then 
+        insert into AD_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;
+        
+  create or replace procedure pa_profesores_3
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'Gastronomia' then 
+        insert into Gastronomia_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;
+    
+      create or replace procedure pa_profesores_4
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'I-Ind' then 
+        insert into II_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;  
+    
+    
+    create or replace procedure pa_profesores_5
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'IA' then 
+        insert into IA_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;   
+    
+    
+    
+    create or replace procedure pa_profesores_6
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'Automotriz' then 
+        insert into Automotriz_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;   
+  
+create or replace procedure pa_profesores_7
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'Con-Publico' then 
+        insert into CP_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;
+    
+    
+    create or replace procedure pa_profesores_8
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'Tecno-TICS' then 
+        insert into TICS_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;
+
+
+    create or replace procedure pa_profesores_9
+    (id_profesores in number,nombre in nvarchar2,apellido_p in nvarchar2,apellido_m in  nvarchar2,carrera_imparte in nvarchar2,nombre_classe in nvarchar2,grupo in nvarchar2) 
+as
+begin
+    insert into t_profesores_tesoem values (id_profesores,nombre,apellido_p,apellido_m,carrera_imparte,nombre_classe,grupo);
+    if carrera_imparte = 'I-energiaaRenova' then 
+        insert into ER_profesores values (carrera_imparte,id_profesores,nombre || ' ' || apellido_p || ' ' || apellido_m, grupo);
+    end if; end;
+ 
+
+
+
+
+
+/*ejecuta cada uno de mis procedimientos con su respectivo nombre del procedimiento de almacenado con id, matricula,nombre,apellido paterno,
+apellido materno,etc  remplazados por los datos de los datos de profesores del tesoem para que guarde la informacion con las diferentes materias que llega a impartir un solo profesor en diferentes carreras  */
+
+/*ISC*/
+EXECUTE pa_profesores_1 (1,'Gerardo','Oca', 'Hernandez','Computacionales','Lenguaje de Interfaz'   , '6S11');
+EXECUTE pa_profesores_1 (2,'Jesus','Martinez','Castillo','Computacionales' ,'Taller de Base de Datos','5S11');
+EXECUTE pa_profesores_1 (3,'Marcos','Vazquez','Castillo','Computacionales' ,'Fisica General','3S11');
+
+/*IAD*/
+
+
+EXECUTE pa_profesores_2 (4,'lilia','Moran','Garduno','IAD' ,'Mercadotecnia','4AD12');
+EXECUTE pa_profesores_2 (5,'Ana','Sanchez','Guerrero','IAD' ,'Taller de Etica','2AD22');
+
+/**Gastronomia*/
+
+EXECUTE pa_profesores_3 (6,' Israel','Corral','Lucio','Computacionales' ,'Quimica','2S22');
+EXECUTE pa_profesores_3 (7,'Luis ','Mota','Contreras','Computacionales' ,'Quimica','2S21');
+
+
+
+
+
+EXECUTE pa_profesores_3 (8,'Omar','Salas','Mendez','Gastronomia' ,'Enologia y Vituini Cultural','4G11');
+EXECUTE pa_profesores_3 (9,'Jorge','Cruz','Morales','Gastronomia' ,'Enologia y Vituini Cultural','4G12');
+
+
+
+/*Industrial*/
+EXECUTE pa_profesores_4 (10,'Eva','Sanchez','Espinoza','I-Ind' ,'Taller de Investigacion 1','6I12');
+EXECUTE pa_profesores_4 (11,'Kiara ','Lozada','Tello','I-Ind' ,'Mercadotecnia','6I12');
+
+/*Ambiental*/
+EXECUTE pa_profesores_5 (12,' Daniel','Flores','Martinez','IA' ,'Seguridad e Higiene','8A11');
+EXECUTE pa_profesores_5 (13,'Miriam','Mora','Alvarez','IA' ,'Fundamentos de Aguas Residuales','8A11');
+
+
+/*Automotriz*/
+EXECUTE pa_profesores_6 (14,'Alfredo','De la Madrid','Gonzalez','Automotriz' ,'Metodos Numericos','3SA11');
+EXECUTE pa_profesores_6 (15,'Mariana','De la Barrera','Perez','Automotriz' ,'Electricidad y Magnetismo','3SA11');
+
+
+/*CP*/
+EXECUTE pa_profesores_7 (16,'Jose ','Rocha','Trujillo','Con-Publico' ,'Gestion Empresarial de Recursos Humanos','8C11');
+EXECUTE pa_profesores_7 (17,'Norma ','Fabian','Costa','Con-Publico' ,'Emprendimiento y Negocio','8C11');
+
+/**Tics*/
+EXECUTE pa_profesores_8(18,'Gustavo ','Romero','Gless','Tecno-TICS' , 'Sistemas Operativos I'  , '5T11');
+EXECUTE pa_profesores_8(19,'Mario','Salas','Conde','Tecno-TICS' , 'Sistemas Operativos II' ,  '6T11');
+
+/*RE*/
+
+EXECUTE pa_profesores_9 (20,'Daniel','Martinez','Martinez','I-energiaaRenova' ,'Electromagnetismo','2E11');
+EXECUTE pa_profesores_9 (21,'Alan','Camacho','Mendez','I-energiaaRenova' ,'Energia Heolica','7E11');
+
+
+/*Realize mis tablas de los profesores ya que aqui se van a guardar tambien pero ahora  con su respectiva carrera , mateiras que imparte el profesor*/
+create table ISC_profesores (
+    ISC nvarchar2(100)not null,
+    id_isc_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+
+create table AD_profesores (
+    ISC nvarchar2(100)not null,
+    id_ad_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+
+create table Gastronomia_profesores (
+    ISC nvarchar2(100)not null,
+    id_lg_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+create table II_profesores (
+    ISC nvarchar2(100)not null,
+    id_ii_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+create table IA_profes (
+    ISC nvarchar2(100)not null,
+    id_ia_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+
+create table Automotriz_profesores (
+    ISC nvarchar2(100)not null,
+    id_aut_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+
+create table CP_profesores (
+    ISC nvarchar2(100)not null,
+    id_cp_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+create table TICS_profesores (
+    ISC nvarchar2(100)not null,
+    id_tics_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+create table IA_profesores (
+    ISC nvarchar2(100)not null,
+    id_ia_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+
+create table ER_profesores (
+    ISC nvarchar2(100)not null,
+    id_er_p number(30)not null,
+    nombre varchar2 (100)not null,
+    grupo nvarchar2(10)not null
+);
+
+
+
+
+/**beca cree una tabla de beca metiendo constraint para evitar valores nulos y a su vez aparezcan los porcentajes de los alumnos **/
+drop procedure becas; 
+drop table beca_a;
+create table beca_a (
+    matricula number(10) unique,
+    nombre varchar2 (100),
+    promedio varchar(5),
+    beca varchar2 (60),
+    CONSTRAINT chk_beca CHECK(beca in ('No tiene beca','10%','30%','50%','100%'))
+);
+
+
+/*cree mi procedimiento de almacenamiento utilizando un cursor ya que es un segmento de memoria y me ayuda para realizar mi 
+opracion con mis registros a ejecutar de las becas con un select iniciando mi procedimiento begin y sus respectivos if para que cuando sea 90 de promedio del estudiante tiene beca del 100 por ciento de 
+lo contratio pasa al siguiente if hasta que quede con su porsentaje de su respectiva calificacion finalizando un todo mi procedimiento. */
+CREATE OR REPLACE PROCEDURE becas IS
+    CURSOR cr_alumnos IS
+        SELECT matricula, nombre,a_paterno,a_materno , promedio
+        FROM t_alumnos_tesoem;  aa_matricula beca_a.matricula%TYPE;aa_nombre beca_a.nombre%TYPE;aa_apellidoP beca_a.nombre%TYPE;
+    aa_apellidoM beca_a.nombre%TYPE; aa_promedio t_alumnos_tesoem.promedio%TYPE;aa_beca beca_a.beca%TYPE;
+BEGIN
+    -- Abrir el cursor y recorrer los registros
+    OPEN cr_alumnos;
+    LOOP
+        FETCH cr_alumnos INTO aa_matricula, aa_nombre,aa_apellidoP,aa_apellidoM, aa_promedio;
+        EXIT WHEN cr_alumnos%NOTFOUND;
+        IF aa_promedio > 90 THEN
+            aa_beca := '100%';
+        ELSIF aa_promedio > 80 THEN
+            aa_beca := '50%';
+        ELSIF aa_promedio > 70 THEN
+            aa_beca := '30%';
+        ELSIF aa_promedio > 60 THEN
+            aa_beca := '10%';
+        ELSE
+            aa_beca := 'No tiene beca';
+        END IF;
+        INSERT INTO beca_a (matricula, nombre, promedio, beca)
+        VALUES (aa_matricula,aa_nombre || ' ' || aa_apellidoP || ' ' || aa_apellidoM, aa_promedio, aa_beca);
+    END LOOP; CLOSE cr_alumnos;
+END;
+execute becas;
+
+select * from beca_a;
+/*NOTA*/
+/*Algunas matriculas les aumente un numero ya sea al inicio o al final pero si se quita quedan las matriculas de los alumnos reales*/
+
+
